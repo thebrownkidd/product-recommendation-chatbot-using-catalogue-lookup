@@ -30,8 +30,8 @@ from tqdm import tqdm
 
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 BATCH_SIZE = 128
-EPOCHS = 10
-LR = 1e-5
+EPOCHS = 50
+LR = 1e-4
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 
