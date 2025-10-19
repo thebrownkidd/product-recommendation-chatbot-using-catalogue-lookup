@@ -61,13 +61,13 @@ def load_models():
     tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
     
     # Load dual encoder model
-    model_state_dict = torch.load("models/disc_cat_dualencoder.pt", map_location=torch.device('cpu'))
+    model_state_dict = torch.load("/etc/secrets/disc_cat_dualencoder.pt", map_location=torch.device('cpu'))
     dual_encoder = DualEncoder()
     dual_encoder.load_state_dict(model_state_dict)
     dual_encoder.eval()
     
     # Load image classification model
-    img_data = torch.load("models/image_multilabel_classifier.pt", map_location=torch.device('cpu'))
+    img_data = torch.load("/etc/secrets/image_multilabel_classifier.pt", map_location=torch.device('cpu'))
     class_map = img_data["class_map"]  # Dictionary mapping category names to indices
     
     # Create model with correct number of classes
