@@ -10,7 +10,7 @@ from transformers import AutoTokenizer, AutoModel
 import google.generativeai as genai
 from torchvision import transforms, models
 import torch.nn as nn
-
+from huggingface_hub import hf_hub_download
 # Load environment variables
 load_dotenv()
 
@@ -55,19 +55,30 @@ def create_image_model(num_classes):
     )
     return model
 
+
+
 def load_models():
     """Load the trained models."""
     # Load tokenizer for text processing
     tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
-    
+    path = hf_hub_download(
+    repo_id="thebrownkidd/product-chatbot-models",
+    filename="disc_cat_dualencoder.pt",
+    repo_type="model"
+    )
     # Load dual encoder model
-    model_state_dict = torch.load("/etc/secrets/disc_cat_dualencoder.pt", map_location=torch.device('cpu'))
+    model_state_dict = torch.load(path, map_location=torch.device('cpu'))
     dual_encoder = DualEncoder()
     dual_encoder.load_state_dict(model_state_dict)
     dual_encoder.eval()
     
     # Load image classification model
-    img_data = torch.load("/etc/secrets/image_multilabel_classifier.pt", map_location=torch.device('cpu'))
+    img_path = hf_hub_download(
+        repo_id="thebrownkidd/product-chatbot-models",
+        filename="image_multilabel_classifier.pt",
+        repo_type="model"
+    )
+    img_data = torch.load(img_path, map_location=torch.device('cpu'))
     class_map = img_data["class_map"]  # Dictionary mapping category names to indices
     
     # Create model with correct number of classes
