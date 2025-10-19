@@ -12,3 +12,4 @@ pydantic>=1.10.7
 aiofiles>=23.1.0
 pillow>=9.5.0
 transformers>=4.30.2
+google-generativeai
