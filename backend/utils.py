@@ -62,7 +62,7 @@ def load_models():
     # Load tokenizer for text processing
     tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
     path = hf_hub_download(
-    repo_id="thebrownkidd/prodrecommendation",
+    repo_id="thebrownkid/prodrecommendation",
     filename="disc_cat_dualencoder.pt",
     repo_type="model",
     token=token
@@ -75,7 +75,7 @@ def load_models():
     
     # Load image classification model
     img_path = hf_hub_download(
-        repo_id="thebrownkidd/prodrecommendation",
+        repo_id="thebrownkid/prodrecommendation",
         filename="image_multilabel_classifier.pt",
         repo_type="model",
         token=token
