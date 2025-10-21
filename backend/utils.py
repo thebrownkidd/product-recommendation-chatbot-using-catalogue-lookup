@@ -16,7 +16,7 @@ load_dotenv()
 
 # Configure Gemini API
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-
+token = os.getenv("HUGGINGFACE_TOKEN")
 # Define transforms for image processing - matching the training code
 image_transform = transforms.Compose([
     transforms.Resize((224, 224)),
@@ -62,9 +62,10 @@ def load_models():
     # Load tokenizer for text processing
     tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
     path = hf_hub_download(
-    repo_id="thebrownkidd/product-chatbot-models",
+    repo_id="thebrownkidd/prodrecommendation",
     filename="disc_cat_dualencoder.pt",
-    repo_type="model"
+    repo_type="model",
+    token=token
     )
     # Load dual encoder model
     model_state_dict = torch.load(path, map_location=torch.device('cpu'))
@@ -74,9 +75,10 @@ def load_models():
     
     # Load image classification model
     img_path = hf_hub_download(
-        repo_id="thebrownkidd/product-chatbot-models",
+        repo_id="thebrownkidd/prodrecommendation",
         filename="image_multilabel_classifier.pt",
-        repo_type="model"
+        repo_type="model",
+        token=token
     )
     img_data = torch.load(img_path, map_location=torch.device('cpu'))
     class_map = img_data["class_map"]  # Dictionary mapping category names to indices
